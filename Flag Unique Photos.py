@@ -6,7 +6,7 @@ import time
 
 #loc='//tx1cifs/tx1data/Austin Share/Detectors Of Engagement IES Goal 1/Secure Study Data/Learn Bop Data/Images/'
 #loc='/Volumes/tx1data/Austin Share/Detectors Of Engagement IES Goal 1/Secure Study Data/Learn Bop Data/Images/'
-loc = '/Users/jmeakin/Desktop/Images/Images/'
+loc = '/Users/john/Desktop/Images/Images/'
 img = '16794_20_5 (1).jpg'
 im = Image.open(loc+img)
 im.show()
@@ -34,8 +34,8 @@ for picture in photolist:
 		pixels = im.getdata()
 		identifier = im.tobytes()
 
-		dataframe = pd.DataFrame(columns=['Learnbop_Id', 'photo_id'])
-		dataframe.loc[0] = 0
+		dataframe = pd.DataFrame(columns=['john', 'photo_id'])
+		dataframe.loc[0] = 9
 		picname1 = str(picture).replace(str(loc),"")
 		picname2 = str(picname1).replace(".jpg","")
 
@@ -54,7 +54,6 @@ iteration = 0
 photo_frame.sort_values(by=['photo_id'], inplace=True)
 photo_frame.reset_index(inplace=True)
 photo_frame['dupcount'] = None
-photo_frame['dupcount'][0] = 1
 for i in range(1,len(photo_frame)):
 	if photo_frame['photo_id'][i]==photo_frame['photo_id'][i-1]:
 		photo_frame['dupcount'][i]=photo_frame['dupcount'][i-1]+1
@@ -67,7 +66,7 @@ for i in range(1,len(photo_frame)):
 
 start = time.time()
 wide_frame = photo_frame.pivot(index='photo_id', columns='dupcount', values='Learnbop_Id')
-print("total time taken reshape: ", time.time() - start)
+print("total time taken reshape: ", time.time())
 
 #writer = pd.ExcelWriter('//tx1cifs/tx1data/Austin Share/Detectors Of Engagement IES Goal 1/Secure Study Data/Learn Bop Data/PhotoDuplicates.xlsx', engine='xlsxwriter')
 #writer = pd.ExcelWriter('/Volumes/tx1data/Austin Share/Detectors Of Engagement IES Goal 1/Secure Study Data/Learn Bop Data/PhotoDuplicates.xlsx', engine='xlsxwriter')
